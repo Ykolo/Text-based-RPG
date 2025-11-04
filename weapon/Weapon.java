@@ -1,6 +1,6 @@
 package rpg.weapon;
 
-import rpg.Monstre;
+import rpg.Monster;
 import rpg.Obstacle;
 
 public abstract class Weapon {
@@ -26,7 +26,7 @@ public abstract class Weapon {
     return price;
   }
 
-  public void attack(Monstre monstre) {
+  public void attack(Monster monstre) {
     monstre.setHp(monstre.getHp() - (this.damage * 0.8));
   }
 

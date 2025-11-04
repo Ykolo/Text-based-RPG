@@ -1,10 +1,10 @@
 package rpg;
 
-public class Monstre {
+public class Monster {
   private String name;
   private double hp;
 
-  public Monstre(String name, double hp) {
+  public Monster(String name, double hp) {
     this.name = name;
     this.hp = hp;
   }
