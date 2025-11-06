@@ -13,9 +13,39 @@ public class Player {
   private double hp;
   private ArrayList<Weapon> weapon = new ArrayList<Weapon>();
 
+  // constructor
+  public Player(String name, String role, double gold, double xp, int mana, double hp) {
+    this.name = name;
+    this.role = role;
+    this.gold = gold;
+    this.xp = xp;
+    this.mana = mana;
+    this.hp = hp;
+  }
+
   // getters
+  public String getName() {
+    return this.name;
+  }
+
+  public String getRole() {
+    return this.role;
+  }
+
   public double getGold() {
     return this.gold;
+  }
+
+  public double getXp() {
+    return this.xp;
+  }
+
+  public int getMana() {
+    return this.mana;
+  }
+
+  public double getHp() {
+    return this.hp;
   }
 
   public void getWeapons() {
