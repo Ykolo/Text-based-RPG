@@ -1,4 +1,4 @@
-package rpg;
+package rpg.entities;
 
 import java.util.ArrayList;
 

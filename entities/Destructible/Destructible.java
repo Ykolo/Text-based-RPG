@@ -1,10 +1,10 @@
-package rpg;
+package rpg.entities.Destructible;
 
-public class Monster {
+public class Destructible {
   private String name;
   private double hp;
 
-  public Monster(String name, double hp) {
+  public Destructible(String name, double hp) {
     this.name = name;
     this.hp = hp;
   }

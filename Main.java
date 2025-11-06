@@ -1,10 +1,12 @@
 package rpg;
 
+import rpg.entities.Player;
+import rpg.game.WeaponStore;
 import rpg.weapon.Bow;
 import rpg.weapon.Sword;
 import rpg.weapon.Weapon;
 
-public class MainGame {
+public class Main {
   public static void main(String[] args) {
     Player p = new Player();
     p.setGold(100);

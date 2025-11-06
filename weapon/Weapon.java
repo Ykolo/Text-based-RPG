@@ -1,7 +1,7 @@
 package rpg.weapon;
 
-import rpg.Monster;
-import rpg.Obstacle;
+import rpg.entities.Destructible.Monster;
+import rpg.entities.Destructible.Obstacle;
 
 public abstract class Weapon {
   private String name;

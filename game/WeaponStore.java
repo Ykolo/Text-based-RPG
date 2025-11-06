@@ -1,5 +1,6 @@
-package rpg;
+package rpg.game;
 
+import rpg.entities.Player;
 import rpg.weapon.Bow;
 import rpg.weapon.Sword;
 import rpg.weapon.Weapon;
