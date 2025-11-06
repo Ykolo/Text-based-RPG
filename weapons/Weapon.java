@@ -30,11 +30,11 @@ public abstract class Weapon {
 
   // functions
   public void attack(Monster monstre) {
-    monstre.setHp(monstre.getHp() - (this.damage * 0.8));
+    monstre.setHp(monstre.getHp() - this.damage);
   }
 
   public void attack(Obstacle obstacle) {
-    obstacle.setHp(obstacle.getHp() - (this.damage * 1.2));
+    obstacle.setHp(obstacle.getHp() - (this.damage * 0.8));
   }
 
   @Override
