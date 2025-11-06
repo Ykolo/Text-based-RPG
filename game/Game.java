@@ -1,15 +1,18 @@
 package rpg.game;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import rpg.entities.Player;
+import rpg.entities.Destructible.Monster;
 
 public class Game {
   private Scanner scanner = new Scanner(System.in);
   private Player player;
   private boolean running = true;
+  private final Random rng = new Random();
 
-  public void start() {
+  public void startGame() {
     System.out.println("=== Bienvenue dans le RPG de Ykolo ===");
     createPlayer();
     gameLoop();
@@ -88,4 +91,12 @@ public class Game {
     }
   }
 
+  private Monster randomMonster() {
+    int r = rng.nextInt(3);
+    return switch (r) {
+      case 0 -> new Monster("Gobelin", 30, 6, 15, 10);
+      case 1 -> new Monster("Loup", 25, 8, 18, 12);
+      default -> new Monster("Slime", 20, 5, 10, 8);
+    };
+  }
 }

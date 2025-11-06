@@ -2,6 +2,7 @@ package rpg.entities;
 
 import java.util.ArrayList;
 
+import rpg.entities.Destructible.Destructible;
 import rpg.weapons.Weapon;
 
 public class Player {
@@ -57,6 +58,10 @@ public class Player {
     this.gold = gold;
   }
 
+  public void setXp(double xp) {
+    this.xp = xp;
+  }
+
   // fonctions
   public void addWeapon(Weapon w) {
     this.inventory.add(w);
@@ -83,5 +88,22 @@ public class Player {
       }
     }
     System.out.println("===========================\n");
+  }
+
+  public void receiveDamage(double damage) {
+    this.hp -= damage;
+    if (this.hp < 0) {
+      this.hp = 0;
+    }
+  }
+
+  public void attack(Destructible target, Weapon weapon) {
+    System.out.println(this.name + " attaque " + target.getName() + " avec " + weapon.getName() + " infligeant "
+        + weapon.getDamage() + " points de dégats.");
+    target.setHp(target.getHp() - weapon.getDamage());
+    System.out.println(target.getName() + " a maintenant " + target.getHp() + " points de vie.");
+    if (target.getHp() < 0) {
+      target.setHp(0);
+    }
   }
 }
