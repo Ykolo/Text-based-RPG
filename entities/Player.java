@@ -2,7 +2,7 @@ package rpg.entities;
 
 import java.util.ArrayList;
 
-import rpg.weapon.Weapon;
+import rpg.weapons.Weapon;
 
 public class Player {
   private String name;
@@ -11,7 +11,7 @@ public class Player {
   private double xp;
   private int mana;
   private double hp;
-  private ArrayList<Weapon> weapon = new ArrayList<Weapon>();
+  private ArrayList<Weapon> inventory = new ArrayList<Weapon>();
 
   // constructor
   public Player(String name, String role, double gold, double xp, int mana, double hp) {
@@ -48,10 +48,8 @@ public class Player {
     return this.hp;
   }
 
-  public void getWeapons() {
-    for (Weapon w : this.weapon) {
-      System.out.println(w.getName());
-    }
+  public ArrayList<Weapon> getInventory() {
+    return this.inventory;
   }
 
   // setters
@@ -61,6 +59,29 @@ public class Player {
 
   // fonctions
   public void addWeapon(Weapon w) {
-    this.weapon.add(w);
+    this.inventory.add(w);
+  }
+
+  public void showStats() {
+    System.out.println("=== Statistiques du joueur ===");
+    System.out.println("Nom : " + this.name);
+    System.out.println("Role : " + this.role);
+    System.out.println("Or : " + this.gold);
+    System.out.println("XP : " + this.xp);
+    System.out.println("Mana : " + this.mana);
+    System.out.println("Santé : " + this.hp + "\n");
+  }
+
+  public void showInventory() {
+    System.out.println("=== Inventaire des armes ===");
+    if (this.inventory.isEmpty()) {
+      System.out.println("Vous n'avez aucune arme dans votre inventaire.");
+    } else {
+      for (int i = 0; i < this.getInventory().size(); i++) {
+        Weapon w = this.getInventory().get(i);
+        System.out.println((i + 1) + ". " + w.getName() + " Degats: " + w.getDamage());
+      }
+    }
+    System.out.println("===========================\n");
   }
 }

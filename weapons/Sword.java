@@ -1,8 +1,8 @@
-package rpg.weapon;
+package rpg.weapons;
 
 public class Sword extends Weapon {
   public Sword() {
-    super("Sword", 10, 50);
+    super("Epee", 10, 50);
   }
 
 }
