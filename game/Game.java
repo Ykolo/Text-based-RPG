@@ -1,6 +1,5 @@
 package rpg.game;
 
-import java.util.Random;
 import java.util.Scanner;
 
 import rpg.entities.Player;
@@ -13,7 +12,6 @@ public class Game {
   private Map map;
   private WeaponStore shop;
   private boolean running = true;
-  private final Random rng = new Random();
 
   public void startGame() {
     System.out.println("=== Bienvenue dans le RPG de Ykolo ===");
@@ -62,7 +60,6 @@ public class Game {
 
   private void gameLoop() {
     while (running && player.getHp() > 0) {
-      // Vérifier si le joueur a atteint la sortie
       if (map.isAtExit()) {
         System.out.println("\nFÉLICITATIONS ! Vous avez atteint la sortie du donjon !");
         System.out.println("Vous avez gagné !");
@@ -116,7 +113,6 @@ public class Game {
     boolean inMovementMode = true;
 
     while (inMovementMode && player.getHp() > 0 && !map.isAtExit()) {
-      // Afficher la carte
       map.display();
 
       System.out.println("\n=== MODE DÉPLACEMENT ===");
@@ -161,11 +157,9 @@ public class Game {
           continue;
       }
 
-      // Tenter le déplacement
       if (map.movePlayer(direction)) {
         System.out.println("Vous vous déplacez vers " + direction + "...");
 
-        // Vérifier ce qui se trouve sur la nouvelle case
         char cell = map.getCurrentCell();
 
         switch (cell) {
@@ -198,7 +192,6 @@ public class Game {
             break;
         }
 
-        // Vérifier si le joueur est mort après un combat
         if (player.getHp() <= 0) {
           inMovementMode = false;
         }

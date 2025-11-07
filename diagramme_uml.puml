@@ -1,0 +1,203 @@
+@startuml RPG_Class_Diagram
+
+' Définition des styles
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+}
+
+' ========== ENTITIES ==========
+
+package "rpg.entities" {
+    class Player {
+        - name: String
+        - role: String
+        - gold: double
+        - xp: double
+        - mana: int
+        - hp: double
+        - inventory: ArrayList<Weapon>
+        
+        + Player(name: String, role: String, gold: double, xp: double, mana: int, hp: double)
+        + getName(): String
+        + getRole(): String
+        + getGold(): double
+        + getXp(): double
+        + getMana(): int
+        + getHp(): double
+        + getInventory(): ArrayList<Weapon>
+        + setGold(gold: double): void
+        + setXp(xp: double): void
+        + addWeapon(w: Weapon): void
+        + showStats(): void
+        + showInventory(): void
+        + receiveDamage(damage: double): void
+        + attack(target: Destructible, weapon: Weapon): void
+    }
+}
+
+package "rpg.entities.Destructible" {
+    interface Destructible {
+        + getName(): String
+        + getHp(): double
+        + setHp(hp: double): void
+        + getAttack(): double
+        + isAlive(): boolean
+    }
+    
+    class Monster {
+        - name: String {final}
+        - hp: double
+        - attack: double {final}
+        - xpReward: double {final}
+        - goldReward: double {final}
+        
+        + Monster(name: String, hp: double, attack: double, xpReward: double, goldReward: double)
+        + getName(): String
+        + getHp(): double
+        + setHp(hp: double): void
+        + getAttack(): double
+        + getXpReward(): double
+        + getGoldReward(): double
+        + isAlive(): boolean
+        + toString(): String
+    }
+    
+    class Obstacle {
+        - name: String
+        - hp: double
+        
+        + Obstacle(name: String, hp: double)
+        + getName(): String
+        + getHp(): double
+        + setHp(hp: double): void
+        + getAttack(): double
+        + isAlive(): boolean
+    }
+}
+
+' ========== WEAPONS ==========
+
+package "rpg.weapons" {
+    abstract class Weapon {
+        - name: String
+        - damage: int
+        - price: double
+        
+        + Weapon(name: String, damage: int, price: double)
+        + getName(): String
+        + getDamage(): int
+        + getPrice(): double
+        + attack(monstre: Monster): void
+        + attack(obstacle: Obstacle): void
+        + toString(): String
+    }
+    
+    class Sword {
+        + Sword()
+    }
+    
+    class Bow {
+        + Bow()
+    }
+    
+    class Staff {
+        + Staff()
+    }
+}
+
+' ========== GAME ==========
+
+package "rpg.game" {
+    class Game {
+        - scanner: Scanner
+        - player: Player
+        - map: Map
+        - shop: WeaponStore
+        - running: boolean
+        - rng: Random {final}
+        
+        + startGame(): void
+        - createPlayer(): void
+        - gameLoop(): void
+        - explore(): void
+    }
+    
+    class Battle {
+        - player: Player {final}
+        - target: Destructible {final}
+        - scanner: Scanner {final}
+        
+        + Battle(player: Player, monster: Monster, scanner: Scanner)
+        + Battle(player: Player, obstacle: Obstacle, scanner: Scanner)
+        + startBattle(): void
+        - attackTarget(): void
+        - monsterCounterAttack(): void
+        - handleBattleEnd(): void
+    }
+    
+    class Map {
+        - grid: char[][]
+        - width: int
+        - height: int
+        - playerX: int
+        - playerY: int
+        - exitX: int
+        - exitY: int
+        
+        + Map(width: int, height: int)
+        - initializeMap(): void
+        - placeRandomEntities(entity: char, count: int): void
+        + display(): void
+        + movePlayer(direction: String): boolean
+        + getCurrentCell(): char
+        + clearCurrentCell(): void
+        + isAtExit(): boolean
+        + createMonster(): Monster
+        + createObstacle(): Obstacle
+        + getPlayerX(): int
+        + getPlayerY(): int
+    }
+    
+    class WeaponStore {
+        - store: Weapon[]
+        
+        + getStock(): Weapon[]
+        + open(player: Player, scanner: Scanner): void
+        + buyWeapon(p: Player, w: Weapon): boolean
+    }
+}
+
+' ========== RELATIONS ==========
+
+' Implémentations
+Monster ..|> Destructible
+Obstacle ..|> Destructible
+
+' Héritages
+Sword --|> Weapon
+Bow --|> Weapon
+Staff --|> Weapon
+
+' Compositions et Agrégations
+Player "1" o-- "*" Weapon : possède >
+Game "1" *-- "1" Player : crée >
+Game "1" *-- "1" Map : utilise >
+Game "1" *-- "1" WeaponStore : utilise >
+Battle "1" o-- "1" Player : combat >
+Battle "1" o-- "1" Destructible : cible >
+Map "1" ..> "*" Monster : crée >
+Map "1" ..> "*" Obstacle : crée >
+WeaponStore "1" o-- "*" Weapon : vend >
+
+' Dépendances
+Player ..> Destructible : attaque >
+Player ..> Weapon : utilise >
+Weapon ..> Monster : attaque >
+Weapon ..> Obstacle : attaque >
+Battle ..> Monster : gère >
+Battle ..> Obstacle : gère >
+
+@enduml
