@@ -64,7 +64,7 @@ public class Game {
     while (running && player.getHp() > 0) {
       // Vérifier si le joueur a atteint la sortie
       if (map.isAtExit()) {
-        System.out.println("\n🎉 FÉLICITATIONS ! Vous avez atteint la sortie du donjon !");
+        System.out.println("\nFÉLICITATIONS ! Vous avez atteint la sortie du donjon !");
         System.out.println("Vous avez gagné !");
         player.showStats();
         running = false;
@@ -108,7 +108,7 @@ public class Game {
     }
 
     if (player.getHp() <= 0) {
-      System.out.println("\n💀 GAME OVER - Vous êtes mort dans le donjon...");
+      System.out.println("\nGAME OVER - Vous êtes mort dans le donjon...");
     }
   }
 
@@ -170,7 +170,7 @@ public class Game {
 
         switch (cell) {
           case 'M':
-            System.out.println("\n⚔️  Vous rencontrez un monstre !");
+            System.out.println("\n Vous rencontrez un monstre !");
             Monster monster = map.createMonster();
             Battle monsterBattle = new Battle(player, monster, scanner);
             monsterBattle.startBattle();
@@ -180,7 +180,7 @@ public class Game {
             break;
 
           case 'O':
-            System.out.println("\n🧱 Vous rencontrez un obstacle !");
+            System.out.println("\nVous rencontrez un obstacle !");
             Obstacle obstacle = map.createObstacle();
             Battle obstacleBattle = new Battle(player, obstacle, scanner);
             obstacleBattle.startBattle();
@@ -189,14 +189,8 @@ public class Game {
             }
             break;
 
-          case '$':
-            System.out.println("\n💰 Vous trouvez un magasin !");
-            shop.open(player, scanner);
-            map.clearCurrentCell();
-            break;
-
           case 'S':
-            System.out.println("\n🚪 Vous êtes à la sortie !");
+            System.out.println("\nVous êtes à la sortie !");
             break;
 
           case '.':
@@ -210,14 +204,5 @@ public class Game {
         }
       }
     }
-  }
-
-  private Monster randomMonster() {
-    int r = rng.nextInt(3);
-    return switch (r) {
-      case 0 -> new Monster("Gobelin", 30, 6, 15, 10);
-      case 1 -> new Monster("Loup", 25, 8, 18, 12);
-      default -> new Monster("Slime", 20, 5, 10, 8);
-    };
   }
 }
